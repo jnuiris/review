@@ -1,0 +1,102 @@
+﻿using IPWorkbench.Services;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
+
+namespace IPWorkbench.ViewModels
+{
+    public class LoginViewModel : INotifyPropertyChanged
+    {
+        private readonly ILoginService _loginService;
+
+        private string _username;
+        private string _password;
+        private bool _isLoading;
+        private string _statusMessage;
+
+        public string Username
+        {
+            get => _username;
+            set { _username = value; OnPropertyChanged(); }
+        }
+
+        public string Password
+        {
+            get => _password;
+            set { _password = value; OnPropertyChanged(); }
+        }
+
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set { _isLoading = value; OnPropertyChanged(); }
+        }
+
+        public string StatusMessage
+        {
+            get => _statusMessage;
+            set { _statusMessage = value; OnPropertyChanged(); }
+        }
+
+        // 登录命令
+        public RelayCommand LoginCommand { get; }
+
+        public LoginViewModel()
+        {
+            // 实际项目中建议通过构造函数注入服务，这里为了演示方便直接实例化
+            _loginService = new MockLoginService();
+
+            LoginCommand = new RelayCommand(
+                execute: async _ => await ExecuteLogin(),
+                canExecute: _ => !IsLoading && !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password)
+            );
+        }
+
+        private async Task ExecuteLogin()
+        {
+            IsLoading = true;
+            StatusMessage = "正在登录...";
+
+            try
+            {
+                var result = await _loginService.LoginAsync(Username, Password);
+
+                if (result.IsSuccess)
+                {
+                    StatusMessage = $"登录成功! Token: {result.Token}";
+                    // TODO: 在这里保存 Token 到本地存储或全局状态
+                    MessageBox.Show($"登录成功！\nToken: {result.Token}", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    StatusMessage = result.Message;
+                    MessageBox.Show(result.Message, "失败", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = "发生异常: " + ex.Message;
+                MessageBox.Show(ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsLoading = false;
+                // 通知命令管理器重新评估 CanExecute，从而更新按钮状态
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
