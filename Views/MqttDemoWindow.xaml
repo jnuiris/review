@@ -1,0 +1,85 @@
+<Window x:Class="IPWorkbench.Views.MqttDemoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MQTT"
+        Height="560" Width="640"
+        MinHeight="480" MinWidth="520"
+        WindowStartupLocation="CenterOwner"
+        Background="#F5F5F5"
+        Closing="Window_Closing">
+    <DockPanel Margin="20">
+        <TextBlock DockPanel.Dock="Top" Text="MQTT 客户端（连接本机 Broker）"
+                   FontSize="18" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,12"/>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="关闭" Width="100" Height="36" Click="CloseButton_Click"/>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Border Background="White" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="6" Padding="16" Margin="0,0,0,12">
+                    <StackPanel>
+                        <TextBlock Text="连接" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="72"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Broker" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                            <TextBox x:Name="BrokerHostText" Grid.Row="0" Grid.Column="1" Text="127.0.0.1" Height="28" VerticalContentAlignment="Center" Margin="0,0,12,8"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="端口" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                            <TextBox x:Name="BrokerPortText" Grid.Row="0" Grid.Column="3" Text="1883" Height="28" VerticalContentAlignment="Center" Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="ClientId" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBox x:Name="ClientIdText" Grid.Row="1" Grid.Column="1" Height="28" VerticalContentAlignment="Center"/>
+                            <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="ConnectButton" Content="连接" Width="88" Height="32" Margin="0,0,8,0" Click="ConnectButton_Click"/>
+                                <Button x:Name="DisconnectButton" Content="断开" Width="88" Height="32" IsEnabled="False" Click="DisconnectButton_Click"/>
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock x:Name="StatusText" Text="未连接" Foreground="#666" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="White" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="6" Padding="16" Margin="0,0,0,12">
+                    <StackPanel>
+                        <TextBlock Text="订阅" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SubscribeTopicText" Text="ipworkbench/demo/#" Height="28" VerticalContentAlignment="Center" Margin="0,0,8,0"/>
+                            <Button x:Name="SubscribeButton" Grid.Column="1" Content="订阅" Width="88" Height="32" IsEnabled="False" Click="SubscribeButton_Click"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="White" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="6" Padding="16" Margin="0,0,0,12">
+                    <StackPanel>
+                        <TextBlock Text="发布" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <TextBlock Text="主题" FontSize="12" Foreground="#666" Margin="0,0,0,4"/>
+                        <TextBox x:Name="PublishTopicText" Text="ipworkbench/demo/test" Height="28" VerticalContentAlignment="Center" Margin="0,0,0,8"/>
+                        <TextBlock Text="载荷（UTF-8）" FontSize="12" Foreground="#666" Margin="0,0,0,4"/>
+                        <TextBox x:Name="PublishPayloadText" Height="64" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="13"/>
+                        <Button x:Name="PublishButton" Content="发布" Width="88" Height="32" HorizontalAlignment="Right" Margin="0,8,0,0" IsEnabled="False" Click="PublishButton_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="White" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="6" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="接收" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                        <TextBox x:Name="ReceiveLogText" MinHeight="120" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                 FontFamily="Consolas" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

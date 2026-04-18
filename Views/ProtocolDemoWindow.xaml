@@ -1,0 +1,44 @@
+<Window x:Class="IPWorkbench.Views.ProtocolDemoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="通信协议demo"
+        Height="600" Width="960"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="选择协议 Demo（先在本机运行对应仿真/ Broker）"
+                   FontSize="18"
+                   Foreground="#333"
+                   Margin="0,0,0,20"/>
+
+        <UniformGrid Grid.Row="1" Columns="3" Rows="1">
+            <Button Margin="8" Height="120" FontSize="16" Click="ModbusDemo_Click">
+                <StackPanel>
+                    <TextBlock Text="Modbus TCP" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="从站仿真说明 + 后续读写" FontSize="12" Foreground="#666"
+                               TextWrapping="Wrap" TextAlignment="Center" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="8" Height="120" FontSize="16" Click="MqttDemo_Click">
+                <StackPanel>
+                    <TextBlock Text="MQTT" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="连接 Broker，订阅/发布" FontSize="12" Foreground="#666"
+                               TextWrapping="Wrap" TextAlignment="Center" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Button>
+            <Button Margin="8" Height="120" FontSize="16" Click="OpcUaDemo_Click">
+                <StackPanel>
+                    <TextBlock Text="OPC UA" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="连接模拟服务器，读节点" FontSize="12" Foreground="#666"
+                               TextWrapping="Wrap" TextAlignment="Center" Margin="0,8,0,0"/>
+                </StackPanel>
+            </Button>
+        </UniformGrid>
+    </Grid>
+</Window>

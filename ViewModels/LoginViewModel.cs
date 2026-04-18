@@ -1,4 +1,4 @@
-﻿using IPWorkbench.Services;
+using IPWorkbench.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +47,11 @@ namespace IPWorkbench.ViewModels
         // 登录命令
         public RelayCommand LoginCommand { get; }
 
+        /// <summary>
+        /// 登录成功后的导航，由 LoginWindow 注入，避免 ViewModel 直接引用具体窗口类型。
+        /// </summary>
+        public Action? OnLoginSucceeded { get; set; }
+
         public LoginViewModel()
         {
             // 实际项目中建议通过构造函数注入服务，这里为了演示方便直接实例化
@@ -71,7 +76,14 @@ namespace IPWorkbench.ViewModels
                 {
                     StatusMessage = $"登录成功! Token: {result.Token}";
                     // TODO: 在这里保存 Token 到本地存储或全局状态
-                    MessageBox.Show($"登录成功！\nToken: {result.Token}", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (OnLoginSucceeded != null)
+                    {
+                        Application.Current.Dispatcher.Invoke(OnLoginSucceeded);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"登录成功！\nToken: {result.Token}", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 else
                 {

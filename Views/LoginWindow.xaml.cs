@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using IPWorkbench.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,21 @@ namespace IPWorkbench.Views
         public LoginWindow()
         {
             InitializeComponent();
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginViewModel vm)
+            {
+                vm.OnLoginSucceeded = () =>
+                {
+                    var demo = new ProtocolDemoWindow();
+                    Application.Current.MainWindow = demo;
+                    demo.Show();
+                    Close();
+                };
+            }
         }
     }
 }
