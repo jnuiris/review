@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPWorkbench", "IPWorkbench.csproj", "{7E4311F5-60B2-4EE2-AA9F-A88BDB90F01B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPWorkbench", "IPWorkbench.csproj", "{7E4311F5-60B2-4EE2-AA9F-A88BDB90F01B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoBack", "..\DemoBack\DemoBack.csproj", "{B9D53EF9-6607-462D-86EE-1001A1B30E2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7E4311F5-60B2-4EE2-AA9F-A88BDB90F01B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E4311F5-60B2-4EE2-AA9F-A88BDB90F01B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E4311F5-60B2-4EE2-AA9F-A88BDB90F01B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D53EF9-6607-462D-86EE-1001A1B30E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D53EF9-6607-462D-86EE-1001A1B30E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D53EF9-6607-462D-86EE-1001A1B30E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D53EF9-6607-462D-86EE-1001A1B30E2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

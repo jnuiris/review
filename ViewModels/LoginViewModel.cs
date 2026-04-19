@@ -54,8 +54,8 @@ namespace IPWorkbench.ViewModels
 
         public LoginViewModel()
         {
-            // 实际项目中建议通过构造函数注入服务，这里为了演示方便直接实例化
-            _loginService = new MockLoginService();
+            // DemoBack: POST {基地址}/api/login
+            _loginService = new HttpLoginService(LoginApiSettings.BaseUrl);
 
             LoginCommand = new RelayCommand(
                 execute: async _ => await ExecuteLogin(),
